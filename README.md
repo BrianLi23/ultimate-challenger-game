@@ -2,15 +2,15 @@
 
 # The Ultimate Challenger
 
-Objective of the game 
+Objective of the game   
 The objective of the game is to complete the various set of challenges that is presented to the player. From doing an obstacle course, solving puzzles, doing a test under a certain time, or even playing cards, the game pushes to player to see if they can become the all mighty "Ultimate Challenger".
 
-Gameplay mechanics and/or user interaction
+Gameplay mechanics and/or user interaction  
 This game will have two different gameplay mechanics. For the game's first set of challenges, the player will be using keys (WASD controls) to control their character. During the second stage of challenges, the player will be using his cursor to interact with the game (ex: clicking, dragging). At any point of the game, the player can press ESC. to pause the game.
 
-Lives and Coins
+Lives and Coins  
 The player has three hearts in total throughout the game, if he loses all three of their hearts, the game will end and the player will have to restart from the beginning. Additonally, coins will be scattered throughout the game and if a certain amount of coins are collected by the player, they will earn a certain achievement.
 
 
-Limitations
+Limitations  
 This program can not save progress, once the user leaves the game thier progress will be lost. Additonally, the user can not go back to a certain point of the game.
