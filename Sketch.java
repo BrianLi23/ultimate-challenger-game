@@ -84,7 +84,7 @@ public class Sketch extends PApplet {
 
     if (intStage == 1) {
 
-      if (intIntroduction <= 0) {
+      if (intIntroduction == 0) {
 
         // Reset Background
         background(91, 193, 252);
@@ -190,12 +190,129 @@ public class Sketch extends PApplet {
         rect(mouseX, mouseY, 20, 20);
       }
 
+      if (intIntroduction == 3) {
+
+        // Reset Background
+        background(91, 193, 252);
+
+        // Text Box 1
+        stroke(51, 51, 255);
+        strokeWeight(2);
+
+        fill(255, 255, 255);
+        rect((width / 3) - 200, 20, 400, 230, 20);
+
+        fill(255, 0, 0);
+        textSize(20);
+        String textBoxMessage = "There will also be coins that can be collected\nthroughout the game, either through finding\nsecret passages or completing hidden\nmissions, or they're right out in the open. If\nyou collect _ amount of coins, you will\nbe titled the GRAND Ultimate Challenger!";
+        text(textBoxMessage, 45, 55);
+
+        // Red Block
+        stroke(1);
+        fill(255, 0, 0);
+        rect(width - 300, height - 300, 275, 275);
+
+        fill(0, 0, 0);
+        circle(width - 200, height - 250, 30);
+        circle(width - 120, height - 250, 30);
+
+        // Instructions
+        text("Use the left and right arrow\nkeys to go forward or back", 50, height - 100);
+
+        // Draw Red Box on Cursor
+        noStroke();
+        fill(255, 0, 0);
+        rect(mouseX, mouseY, 20, 20);
+      }
+
+      if (intIntroduction == 4) {
+
+        // Reset Background
+        background(91, 193, 252);
+
+        // Text Box 1
+        stroke(51, 51, 255);
+        strokeWeight(2);
+
+        fill(255, 255, 255);
+        rect((width / 3) - 200, 20, 400, 230, 20);
+
+        fill(255, 0, 0);
+        textSize(20);
+        String textBoxMessage = "And that's all you need to know for the\nupcoming challenge, I hope you're ready and\nI wish you luck! Let's see if you have what it\ntakes to become the Ultimate Challenger!";
+        text(textBoxMessage, 45, 55);
+
+        // Red Block
+        stroke(1);
+        fill(255, 0, 0);
+        rect(width - 300, height - 300, 275, 275);
+
+        fill(0, 0, 0);
+        circle(width - 200, height - 250, 30);
+        circle(width - 120, height - 250, 30);
+
+        // Instructions
+        text("Use the left and right arrow\nkeys to go forward or back", 50, height - 100);
+
+        // Draw Red Box on Cursor
+        noStroke();
+        fill(255, 0, 0);
+        rect(mouseX, mouseY, 20, 20);
+      }
+
+      if (intIntroduction == 5) {
+
+        // Reset Background
+        background(91, 193, 252);
+
+        // Display Text
+        textSize(60);
+        fill(255, 255, 255);
+        text("Are you ready?", (width / 2) - 190, (height / 2) - 100);
+
+        // Start Button
+        stroke(51, 51, 255);
+        strokeWeight(2);
+        fill(168, 219, 255);
+        rect((width / 2) - 160, height / 2, 300, 100, 20);
+
+        fill(0, 0, 0);
+        text("Start!", (width / 2) - 80, (height / 2) + 70);
+
+        // Making start button teact to cursor
+        if (mouseX >= (width / 2) - 160 && mouseX <= (width / 2) + 140 && mouseY >= (height / 2)
+            && mouseY <= height / 2 + 100) {
+
+          stroke(51, 51, 255);
+          strokeWeight(2);
+          fill(255, 0, 0);
+          rect((width / 2) - 160, height / 2, 300, 100, 20);
+
+          fill(255, 255, 255);
+          text("Start!", (width / 2) - 80, (height / 2) + 70);
+
+          // Checking if the user clicks the start button
+          if (mousePressed) {
+            intStage += 1;
+          }
+        }
+
+        // Draw Red Box on Cursor
+        noStroke();
+        fill(255, 0, 0);
+        rect(mouseX, mouseY, 20, 20);
+      }
+
+    }
+
+    if (intStage == 2) {
+
     }
 
   }
 
-  // Left and Right control on stage 1
   public void keyReleased() {
+    // Left and right control on stage 1 (Introduction Part)
     if (intStage == 1) {
 
       if (intIntroduction == 0) {
@@ -220,7 +337,7 @@ public class Sketch extends PApplet {
       else if (intIntroduction == 2) {
 
         if (keyCode == RIGHT) {
-          intIntroduction = 2;
+          intIntroduction = 3;
         }
 
         if (keyCode == LEFT) {
@@ -229,7 +346,31 @@ public class Sketch extends PApplet {
 
       }
 
-    }
-  }
+      else if (intIntroduction == 3) {
 
+        if (keyCode == RIGHT) {
+          intIntroduction = 4;
+        }
+
+        if (keyCode == LEFT) {
+          intIntroduction = 2;
+        }
+
+        else if (intIntroduction == 4) {
+
+          if (keyCode == RIGHT) {
+            intIntroduction = 5;
+          }
+
+          if (keyCode == LEFT) {
+            intIntroduction = 3;
+          }
+
+        }
+
+      }
+
+    }
+
+  }
 }
