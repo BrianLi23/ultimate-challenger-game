@@ -169,7 +169,7 @@ public class Sketch extends PApplet {
 
         fill(255, 0, 0);
         textSize(20);
-        String textBoxMessage = "Throughout the challenge, you will have 3 lives, or 3 chances should I say. ";
+        String textBoxMessage = "Throughout the challenge, you will have\n3 lives, or 3 chances should I say. If you make\n3 mistakes (Getting caught by a gaurd,\nanswering a question wrong, losing a round,\nsmashing your keyboard), the challenge is\nover and you are deemed not worthy.";
         text(textBoxMessage, 45, 55);
 
         // Red Block
@@ -206,7 +206,7 @@ public class Sketch extends PApplet {
 
       }
 
-      if (intIntroduction == 1) {
+      else if (intIntroduction == 1) {
         if (keyCode == RIGHT) {
           intIntroduction = 2;
         }
@@ -217,10 +217,10 @@ public class Sketch extends PApplet {
 
       }
 
-      if (intIntroduction == 2) {
+      else if (intIntroduction == 2) {
 
         if (keyCode == RIGHT) {
-          intIntroduction = 3;
+          intIntroduction = 2;
         }
 
         if (keyCode == LEFT) {
