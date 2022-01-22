@@ -40,6 +40,11 @@ public class Sketch extends PApplet {
   public int[] intGaurdY1 = { 300, 450 };
   public boolean[] boolDirection1 = { true, true };
 
+  // Guard Positions (Level 2)
+  public int[] intGaurdX2 = { 300, 450, 150, 175 };
+  public int[] intGaurdY2 = { 300, 450, 150, 400 };
+  public boolean[] boolDirection2 = { true, true, true };
+
   /**
    * Called once at the beginning of execution, put your size all in this method
    */
@@ -574,7 +579,9 @@ public class Sketch extends PApplet {
         rect(0, height - 20, width, 20);
         rect(width - 20, 0, 20, height);
 
-        // Setting all boundaries
+        // Safe Zone
+        fill(25, 153, 17);
+        rect(width - 200, height - 100, 200, 100);
 
         // Outer Walls
         if (intPlayerX[1] < 20) {
@@ -591,21 +598,107 @@ public class Sketch extends PApplet {
         }
 
         // Middle Wall
+        fill(97, 65, 0);
         rect(300, 200, 40, 400);
 
+        // Setting Boundary on Top Side
+        if (intPlayerX[1] + 50 > 300 && intPlayerX[1] < 300 + 40 && intPlayerY[1] + 50 > 200
+            && intPlayerY[1] < 200) {
+          intPlayerY[1] = 150;
+        }
+
+        // Putting Boundary on Bottom Side
+        if (intPlayerX[1] + 50 > 300 && intPlayerX[1] < 300 + 40 && intPlayerY[1] <= 600
+            && intPlayerY[1] + 50 >= 600) {
+          intPlayerY[1] = 600;
+        }
+
         // Putting Boundary on Left Side
-        if (intPlayerX[1] + 50 >= 300 && intPlayerX[1] <= 300 && intPlayerY[1] + 50 >= 200
-            && intPlayerY[1] <= 200 + 400) {
+        if ((intPlayerX[1] + 50 > 300 && intPlayerX[1] < 300 && intPlayerY[1] + 50 > 200)
+            && (intPlayerY[1] < 200 || intPlayerY[1] < 200 + 400)) {
           intPlayerX[1] = 250;
         }
 
-        // Top Side
-        if (intPlayerX[1] + 50 >= 300)
+        // Putting Boundary on Right Side
+        if ((intPlayerX[1] <= 340 && intPlayerX[1] + 50 >= 340 && intPlayerY[1] + 50 > 200)
+            && (intPlayerY[1] < 200 || intPlayerY[1] < 200 + 400)) {
+          intPlayerX[1] = 340;
+        }
 
-          // Drawing player Cube
-          fill(255, 0, 0);
+        // Drawing player Cube
+        fill(255, 0, 0);
         noStroke();
         rect(intPlayerX[1], intPlayerY[1], 50, 50);
+
+        // Checking for collision between player and gaurd
+        for (int i = 0; i < intGaurdY2.length; i++) {
+          if (intPlayerX[1] + 50 > intGaurdX2[i] && intPlayerX[1] < intGaurdX2[i] + 50
+              && intPlayerY[1] + 50 > intGaurdY2[i] && intPlayerY[1] < intGaurdY2[i] + 50) {
+            intLives -= 1;
+            intPlayerX[1] = 20;
+            intPlayerY[1] = 20;
+          }
+        }
+
+        // If player reaches safe zone
+        if (intPlayerX[1] + 25 > width - 200 && intPlayerY[1] + 25 > height - 100) {
+          intLevel += 1;
+        }
+
+        // Gaurd movement
+        fill(0, 0, 255);
+        rect(intGaurdX2[0], intGaurdY2[0], 50, 50);
+        rect(intGaurdX2[1], intGaurdY2[1], 50, 50);
+        rect(intGaurdX2[2], intGaurdY2[2], 50, 50);
+        rect(intGaurdX2[3], intGaurdY2[3], 50, 50);
+
+        if (intGaurdX2[0] >= width - 70) {
+          boolDirection2[0] = false;
+        } else if (intGaurdX2[0] <= 340) {
+          boolDirection2[0] = true;
+        }
+
+        if (boolDirection2[0]) {
+          intGaurdX2[0] += 3;
+        } else {
+          intGaurdX2[0] -= 3;
+        }
+
+        if (intGaurdY2[1] >= height - 70) {
+          boolDirection2[1] = false;
+        } else if (intGaurdY2[1] <= 20) {
+          boolDirection2[1] = true;
+        }
+
+        if (boolDirection2[1]) {
+          intGaurdY2[1] += 3;
+        } else {
+          intGaurdY2[1] -= 3;
+        }
+
+        if (intGaurdY2[2] >= height - 70) {
+          boolDirection2[2] = false;
+        } else if (intGaurdY2[2] <= 20) {
+          boolDirection2[2] = true;
+        }
+
+        if (boolDirection2[2]) {
+          intGaurdY2[2] += 3;
+        } else {
+          intGaurdY2[2] -= 3;
+        }
+
+        if (intGaurdY2[3] >= height - 70) {
+          boolDirection2[3] = false;
+        } else if (intGaurdY2[3] <= 20) {
+          boolDirection2[3] = true;
+        }
+
+        if (boolDirection2[3]) {
+          intGaurdY2[3] += 3;
+        } else {
+          intGaurdY2[3] -= 3;
+        }
       }
     }
 
