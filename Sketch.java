@@ -41,9 +41,9 @@ public class Sketch extends PApplet {
   public boolean[] boolDirection1 = { true, true };
 
   // Guard Positions (Level 2)
-  public int[] intGaurdX2 = { 300, 450, 150, 175 };
-  public int[] intGaurdY2 = { 300, 450, 150, 400 };
-  public boolean[] boolDirection2 = { true, true, true };
+  public int[] intGaurdX2 = { 300, 450, 150, 200, 300 };
+  public int[] intGaurdY2 = { 300, 450, 150, 400, 600 };
+  public boolean[] boolDirection2 = { true, true, true, true, true };
 
   /**
    * Called once at the beginning of execution, put your size all in this method
@@ -450,9 +450,9 @@ public class Sketch extends PApplet {
         }
 
         if (boolDirection1[0]) {
-          intGaurdX1[0] += 3;
+          intGaurdX1[0] += 5;
         } else {
-          intGaurdX1[0] -= 3;
+          intGaurdX1[0] -= 5;
         }
 
         if (intGaurdY1[1] >= height - 70) {
@@ -462,9 +462,9 @@ public class Sketch extends PApplet {
         }
 
         if (boolDirection1[1]) {
-          intGaurdY1[1] += 3;
+          intGaurdY1[1] += 5;
         } else {
-          intGaurdY1[1] -= 3;
+          intGaurdY1[1] -= 5;
         }
 
         // Wall
@@ -651,6 +651,7 @@ public class Sketch extends PApplet {
         rect(intGaurdX2[1], intGaurdY2[1], 50, 50);
         rect(intGaurdX2[2], intGaurdY2[2], 50, 50);
         rect(intGaurdX2[3], intGaurdY2[3], 50, 50);
+        rect(intGaurdX2[4], intGaurdY2[4], 50, 50);
 
         if (intGaurdX2[0] >= width - 70) {
           boolDirection2[0] = false;
@@ -659,9 +660,9 @@ public class Sketch extends PApplet {
         }
 
         if (boolDirection2[0]) {
-          intGaurdX2[0] += 3;
+          intGaurdX2[0] += 5;
         } else {
-          intGaurdX2[0] -= 3;
+          intGaurdX2[0] -= 5;
         }
 
         if (intGaurdY2[1] >= height - 70) {
@@ -671,9 +672,9 @@ public class Sketch extends PApplet {
         }
 
         if (boolDirection2[1]) {
-          intGaurdY2[1] += 3;
+          intGaurdY2[1] += 5;
         } else {
-          intGaurdY2[1] -= 3;
+          intGaurdY2[1] -= 5;
         }
 
         if (intGaurdY2[2] >= height - 70) {
@@ -683,9 +684,9 @@ public class Sketch extends PApplet {
         }
 
         if (boolDirection2[2]) {
-          intGaurdY2[2] += 3;
+          intGaurdY2[2] += 5;
         } else {
-          intGaurdY2[2] -= 3;
+          intGaurdY2[2] -= 5;
         }
 
         if (intGaurdY2[3] >= height - 70) {
@@ -695,9 +696,21 @@ public class Sketch extends PApplet {
         }
 
         if (boolDirection2[3]) {
-          intGaurdY2[3] += 3;
+          intGaurdY2[3] += 5;
         } else {
-          intGaurdY2[3] -= 3;
+          intGaurdY2[3] -= 5;
+        }
+
+        if (intGaurdX2[4] >= width - 70) {
+          boolDirection2[4] = false;
+        } else if (intGaurdX2[4] <= 20) {
+          boolDirection2[4] = true;
+        }
+
+        if (boolDirection2[4]) {
+          intGaurdX2[4] += 5;
+        } else {
+          intGaurdX2[4] -= 5;
         }
       }
     }
