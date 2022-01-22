@@ -10,10 +10,35 @@ public class Sketch extends PApplet {
   public int intCoins = 0;
 
   // This variable keeps track of what page of the introduction the player is on,
-  // and the game displays different information depending on this varaiable
-  // number, when this variable reaches 4, it enters a different stage of the
-  // game.
+  // and the game displays different information depending on this variable
+  // value
   public int intIntroduction = 0;
+
+  // This variable keeps track of what level of the obstacle course the player is
+  // on, and the game displays a different level depending on this variable
+  // value
+  public int intLevel = 0;
+
+  // This array keeps track of the x positions of the player for the first
+  // challenge
+  public int[] intPlayerX = { 20, 20, 0, 20, 20 };
+
+  // This array keeps track of the y positions of the player for the first
+  // challenge
+  public int[] intPlayerY = { 20, 20, 20, 20, 20 };
+
+  // Variables for tracking WASD keys (in order to handle multiple games for first
+  // challenge)
+
+  boolean WPressed = false;
+  boolean APressed = false;
+  boolean SPressed = false;
+  boolean DPressed = false;
+
+  // Guard Positions (Level 1)
+  public int[] intGaurdX1 = { 300, 450 };
+  public int[] intGaurdY1 = { 300, 450 };
+  public boolean[] boolDirection1 = { true, true };
 
   /**
    * Called once at the beginning of execution, put your size all in this method
@@ -306,11 +331,311 @@ public class Sketch extends PApplet {
     }
 
     if (intStage == 2) {
+      if (intLevel == 0) {
 
+        // Reset Background
+        background(91, 193, 252);
+
+        // Text 1
+        textSize(30);
+        fill(0, 0, 0);
+        text("Objective: Reach the              area", width / 2 - 125, 150);
+
+        textSize(30);
+        fill(25, 153, 17);
+        text("green", width / 2 + 137, 150);
+
+        fill(25, 153, 17);
+        noStroke();
+        rect(width / 2 + 30, 200, 100, 100);
+
+        // Text 2
+        textSize(30);
+        fill(0, 0, 0);
+        text("First Challenge: Reach the End Point", width / 2 - 225, 50);
+
+        // WASD Controls Text
+        textSize(30);
+        fill(0, 0, 0);
+        text("Use WASD keys to move", width / 2 - 300, 375);
+
+        textSize(40);
+        text("W", width / 2 - 200, 445);
+        text("A", width / 2 - 247, 495);
+        text("S", width / 2 - 197, 495);
+        text("D", width / 2 - 147, 495);
+
+        // Avoid Guards
+        textSize(30);
+        fill(0, 0, 0);
+        text("Avoid touching guards!", width - 325, height - 180);
+
+        fill(0, 0, 255);
+        noStroke();
+        rect(width - 150, height - 150, 100, 100);
+
+        // Draw Red Box on Cursor
+        noStroke();
+        fill(255, 0, 0);
+        rect(mouseX, mouseY, 20, 20);
+
+        // Next Button
+        stroke(51, 51, 255);
+        strokeWeight(2);
+        fill(168, 219, 255);
+        rect(50, height - 120, 200, 75, 20);
+
+        fill(0, 0, 0);
+        textSize(40);
+        text("Next!", 100, height - 70);
+
+        // Making start button teact to cursor
+        if (mouseX >= 50 && mouseX <= 250 && mouseY >= height - 120
+            && mouseY <= height - 45) {
+
+          stroke(51, 51, 255);
+          strokeWeight(2);
+          fill(255, 0, 0);
+          rect(50, height - 120, 200, 75, 20);
+
+          fill(255, 255, 255);
+          textSize(40);
+          text("Next!", 100, height - 70);
+
+          // Checking if the user clicks the start button
+          if (mousePressed) {
+            intLevel = 1;
+          }
+        }
+
+      }
+
+      if (intLevel == 1) {
+
+        // Reset Background
+        background(91, 193, 252);
+
+        // WASD Controls
+        if (keyPressed) {
+          if (WPressed) {
+            intPlayerY[0] -= 3;
+          }
+          if (APressed) {
+            intPlayerX[0] -= 3;
+          }
+
+          if (SPressed) {
+            intPlayerY[0] += 3;
+          }
+
+          if (DPressed) {
+            intPlayerX[0] += 3;
+          }
+        }
+
+        // Gaurd movement
+        fill(0, 0, 255);
+        rect(intGaurdX1[0], intGaurdY1[0], 50, 50);
+        rect(intGaurdX1[1], intGaurdY1[1], 50, 50);
+
+        if (intGaurdX1[0] >= width - 70) {
+          boolDirection1[0] = false;
+        } else if (intGaurdX1[0] <= 20) {
+          boolDirection1[0] = true;
+        }
+
+        if (boolDirection1[0]) {
+          intGaurdX1[0] += 3;
+        } else {
+          intGaurdX1[0] -= 3;
+        }
+
+        if (intGaurdY1[1] >= height - 70) {
+          boolDirection1[1] = false;
+        } else if (intGaurdY1[1] <= 20) {
+          boolDirection1[1] = true;
+        }
+
+        if (boolDirection1[1]) {
+          intGaurdY1[1] += 3;
+        } else {
+          intGaurdY1[1] -= 3;
+        }
+
+        // Wall
+        fill(97, 65, 0);
+        rect(0, 0, width, 20);
+
+        fill(97, 65, 0);
+        rect(0, 0, 20, height);
+
+        fill(97, 65, 0);
+        rect(0, height - 20, width, 20);
+
+        fill(97, 65, 0);
+        rect(width - 20, 0, 20, height);
+
+        // Safe Zone
+        fill(25, 153, 17);
+        rect(width - 200, height - 100, 200, 100);
+
+        // Setting boundaries on walls and access to safe Zone
+        if (intPlayerX[0] < 20) {
+          intPlayerX[0] = 20;
+        }
+
+        if (intPlayerX[0] > (width - 70)) {
+          intPlayerX[0] = width - 70;
+        }
+
+        if (intPlayerY[0] > (height - 70)) {
+          intPlayerY[0] = height - 70;
+        }
+
+        if (intPlayerY[0] < 20) {
+          intPlayerY[0] = 20;
+        }
+
+        if (intPlayerX[0] + 25 > width - 200 && intPlayerY[0] + 25 > height - 100) {
+          intLevel += 1;
+        }
+
+        // Up and down side
+        for (int i = 0; i < intGaurdY1.length; i++) {
+          if (intPlayerX[0] + 50 > intGaurdX1[i] && intPlayerX[0] < intGaurdX1[i] + 50
+              && intPlayerY[0] + 50 > intGaurdY1[i] && intPlayerY[0] < intGaurdY1[i] + 50) {
+            intLives -= 1;
+            intPlayerX[0] = 20;
+            intPlayerY[0] = 20;
+          }
+        }
+
+        // Drawing player Cube
+        fill(255, 0, 0);
+        noStroke();
+        rect(intPlayerX[0], intPlayerY[0], 50, 50);
+
+        // Showing Level, Number of Lives, Pause Button
+        fill(255, 0, 0);
+        textSize(40);
+        text("Lives: " + intLives, width - 160, 65);
+
+        fill(255, 0, 0);
+        textSize(40);
+        text("Level: " + intLevel, width / 2 - 90, 65);
+
+        // Checking if user loses all 3 lives, goes to ending screen
+        if (intLives == 0) {
+          intStage = -1;
+        }
+      }
+
+      if (intLevel == 2) {
+
+        // Reset Background
+        background(91, 193, 252);
+
+        // Showing Level, Number of Lives, Pause Button
+        fill(255, 0, 0);
+        textSize(40);
+        text("Lives: " + intLives, width - 160, 65);
+
+        fill(255, 0, 0);
+        textSize(40);
+        text("Level: " + intLevel, width / 2 - 90, 65);
+
+        // Checking if user loses all 3 lives, goes to ending screen
+        if (intLives == 0) {
+          intStage = -1;
+        }
+
+        // WASD Controls
+        if (keyPressed) {
+          if (WPressed) {
+            intPlayerY[1] -= 3;
+          }
+          if (APressed) {
+            intPlayerX[1] -= 3;
+          }
+
+          if (SPressed) {
+            intPlayerY[1] += 3;
+          }
+
+          if (DPressed) {
+            intPlayerX[1] += 3;
+          }
+        }
+
+        // Walls
+        fill(97, 65, 0);
+        rect(0, 0, width, 20);
+        rect(0, 0, 20, height);
+        rect(0, height - 20, width, 20);
+        rect(width - 20, 0, 20, height);
+
+        // Setting all boundaries
+
+        // Outer Walls
+        if (intPlayerX[1] < 20) {
+          intPlayerX[1] = 20;
+        }
+        if (intPlayerX[1] > (width - 70)) {
+          intPlayerX[1] = width - 70;
+        }
+        if (intPlayerY[1] > (height - 70)) {
+          intPlayerY[1] = height - 70;
+        }
+        if (intPlayerY[1] < 20) {
+          intPlayerY[1] = 20;
+        }
+
+        // Middle Wall
+        rect(300, 200, 40, 400);
+
+        // Putting Boundary on Left Side
+        if (intPlayerX[1] + 50 >= 300 && intPlayerX[1] <= 300 && intPlayerY[1] + 50 >= 200
+            && intPlayerY[1] <= 200 + 400) {
+          intPlayerX[1] = 250;
+        }
+
+        // Top Side
+        if (intPlayerX[1] + 50 >= 300)
+
+          // Drawing player Cube
+          fill(255, 0, 0);
+        noStroke();
+        rect(intPlayerX[1], intPlayerY[1], 50, 50);
+      }
     }
 
   }
 
+  public void keyPressed() {
+    // To handle multiple keys in challenge 1
+    if (intStage == 2) {
+      if (key == 'w' || key == 'W') {
+        WPressed = true;
+      }
+
+      else if (key == 's' || key == 'S') {
+        SPressed = true;
+      }
+
+      else if (key == 'a' || key == 'A') {
+        APressed = true;
+      }
+
+      else if (key == 'd' || key == 'D') {
+        DPressed = true;
+      }
+    }
+  }
+
+  /**
+   * Called once at the beginning of execution. Add initial set up
+   * values here i.e background, stroke, fill etc.
+   */
   public void keyReleased() {
     // Left and right control on stage 1 (Introduction Part)
     if (intStage == 1) {
@@ -355,22 +680,45 @@ public class Sketch extends PApplet {
         if (keyCode == LEFT) {
           intIntroduction = 2;
         }
+      }
 
-        else if (intIntroduction == 4) {
+      else if (intIntroduction == 4) {
 
-          if (keyCode == RIGHT) {
-            intIntroduction = 5;
-          }
+        if (keyCode == RIGHT) {
+          intIntroduction = 5;
+        }
 
-          if (keyCode == LEFT) {
-            intIntroduction = 3;
-          }
-
+        if (keyCode == LEFT) {
+          intIntroduction = 3;
         }
 
       }
 
+      else if (intIntroduction == 5) {
+        if (keyCode == LEFT) {
+          intIntroduction = 4;
+        }
+      }
+
+    }
+    if (intStage == 2) {
+      if (key == 'w' || key == 'W') {
+        WPressed = false;
+      }
+
+      else if (key == 's' || key == 'S') {
+        SPressed = false;
+      }
+
+      else if (key == 'a' || key == 'A') {
+        APressed = false;
+      }
+
+      else if (key == 'd' || key == 'D') {
+        DPressed = false;
+      }
     }
 
   }
+
 }
