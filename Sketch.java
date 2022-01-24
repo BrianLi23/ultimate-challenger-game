@@ -19,9 +19,15 @@ public class Sketch extends PApplet {
   // value
   public int intLevel = 0;
 
+  // This variable keeps track of what question of the test the player is
+  // on, and the game displays a different question/puzzle depending on this
+  // variable
+  // value
+  public int intQuestion = 0;
+
   // This array keeps track of the x positions of the player for the first
   // challenge
-  public int[] intPlayerX = { 20, 20, 0, 20, 20 };
+  public int[] intPlayerX = { 20, 20, 20, 20, 20 };
 
   // This array keeps track of the y positions of the player for the first
   // challenge
@@ -30,10 +36,10 @@ public class Sketch extends PApplet {
   // Variables for tracking WASD keys (in order to handle multiple games for first
   // challenge)
 
-  boolean WPressed = false;
-  boolean APressed = false;
-  boolean SPressed = false;
-  boolean DPressed = false;
+  public boolean WPressed = false;
+  public boolean APressed = false;
+  public boolean SPressed = false;
+  public boolean DPressed = false;
 
   // Guard Positions (Level 1)
   public int[] intGaurdX1 = { 300, 450 };
@@ -44,6 +50,11 @@ public class Sketch extends PApplet {
   public int[] intGaurdX2 = { 300, 450, 150, 200, 300 };
   public int[] intGaurdY2 = { 300, 450, 150, 400, 600 };
   public boolean[] boolDirection2 = { true, true, true, true, true };
+
+  // Guard Positions (Level 3)
+  public int[] intGaurdX3 = { 100, 300, 500, 200, 300, 600 };
+  public int[] intGaurdY3 = { 250, 200, 150, 400, 600, 300 };
+  public boolean[] boolDirection3 = { true, true, true, true, true, true };
 
   /**
    * Called once at the beginning of execution, put your size all in this method
@@ -64,6 +75,39 @@ public class Sketch extends PApplet {
    * Called repeatedly, anything drawn to the screen goes here
    */
   public void draw() {
+
+    // Ending Screen (if user dies)
+    if (intStage == -1) {
+      text("You have loss all 3 of your lives, and deemed yourself unworthy of the title of Ultimate Challenger...", 50,
+          300);
+
+      // Start Button
+      stroke(51, 51, 255);
+      strokeWeight(2);
+      fill(168, 219, 255);
+      rect((width / 2) - 160, height / 2, 300, 100, 20);
+
+      fill(0, 0, 0);
+      text("Try Again?", (width / 2) - 100, (height / 2) + 70);
+
+      // Making start button teact to cursor
+      if (mouseX >= (width / 2) - 160 && mouseX <= (width / 2) + 140 && mouseY >= (height / 2)
+          && mouseY <= height / 2 + 100) {
+
+        stroke(51, 51, 255);
+        strokeWeight(2);
+        fill(255, 0, 0);
+        rect((width / 2) - 160, height / 2, 300, 100, 20);
+
+        fill(255, 255, 255);
+        text("Try Again?", (width / 2) - 80, (height / 2) + 70);
+      }
+
+      // Checking if the user clicks the start button
+      if (mousePressed) {
+        // paste all variable
+      }
+    }
 
     // Starting Screen
     if (intStage == 0) {
@@ -540,6 +584,12 @@ public class Sketch extends PApplet {
         // Reset Background
         background(91, 193, 252);
 
+        if (keyPressed) {
+          if (keyCode == ALT) {
+            intLevel += 1;
+          }
+        }
+
         // Showing Level, Number of Lives, Pause Button
         fill(255, 0, 0);
         textSize(40);
@@ -713,6 +763,307 @@ public class Sketch extends PApplet {
           intGaurdX2[4] -= 5;
         }
       }
+
+      if (intLevel == 3) {
+
+        // Reset Background
+        background(91, 193, 252);
+
+        // Showing Level, Number of Lives, Pause Button
+        fill(255, 0, 0);
+        textSize(40);
+        text("Lives: " + intLives, width - 160, 65);
+
+        fill(255, 0, 0);
+        textSize(40);
+        text("Level: " + intLevel, width / 2 - 90, 65);
+
+        // Checking if user loses all 3 lives, goes to ending screen
+        if (intLives == 0) {
+          intStage = -1;
+        }
+
+        // WASD Controls
+        if (keyPressed) {
+          if (WPressed) {
+            intPlayerY[2] -= 3;
+          }
+          if (APressed) {
+            intPlayerX[2] -= 3;
+          }
+
+          if (SPressed) {
+            intPlayerY[2] += 3;
+          }
+
+          if (DPressed) {
+            intPlayerX[2] += 3;
+          }
+        }
+
+        // Outer Wall
+        fill(97, 65, 0);
+        rect(0, 0, width, 20);
+        rect(0, 0, 20, height);
+        rect(0, height - 20, width, 20);
+        rect(width - 20, 0, 20, height);
+
+        // Safe Zone
+        fill(25, 153, 17);
+        rect(width / 2 - 100, height / 2 - 100, 200, 200);
+
+        // Wall Surronding Safe Zone
+        fill(97, 65, 0);
+        rect(width / 2 - 100, height / 2 - 120, 200, 20);
+        rect(width / 2 - 120, height / 2 - 120, 20, 240);
+        rect(width / 2 - 100, height / 2 + 100, 200, 20);
+        rect(width / 2 - 100, height / 2 + 100, 200, 20);
+        rect(width / 2 + 100, height / 2 - 120, 20, 80);
+        rect(width / 2 + 100, height / 2 + 40, 20, 80);
+
+        // If player reaches safe zone
+        if (intPlayerX[2] + 25 <= width / 2 + 100 && intPlayerX[2] + 25 >= width / 2 - 100
+            && intPlayerY[2] > height / 2 - 100
+            && intPlayerY[2] + 50 < height / 2 + 100) {
+          intLevel += 1;
+        }
+
+        // Draw player Cube
+        fill(255, 0, 0);
+        noStroke();
+        rect(intPlayerX[2], intPlayerY[2], 50, 50);
+
+        // Making Restrictions on wall
+
+        // Top Side
+        if (intPlayerX[2] + 50 >= width / 2 - 120 && intPlayerX[2] <= width / 2 + 120
+            && intPlayerY[2] + 50 >= height / 2 - 120 && intPlayerY[2] < height / 2 - 120) {
+          intPlayerY[2] = height / 2 - 170;
+        }
+
+        // Bottom Side
+        if (intPlayerX[2] + 50 >= width / 2 - 120 && intPlayerX[2] <= width / 2 + 120
+            && intPlayerY[2] <= height / 2 + 120 && intPlayerY[2] + 50 > height / 2 + 120) {
+          intPlayerY[2] = height / 2 + 120;
+        }
+
+        // Left Side
+        if (intPlayerX[2] + 50 >= width / 2 - 120 && intPlayerX[2] <= width / 2 - 120
+            && intPlayerY[2] + 50 >= height / 2 - 120 && intPlayerY[2] <= height / 2 + 120) {
+          intPlayerX[2] = width / 2 - 170;
+        }
+
+        // Right Side (Top)
+        if (intPlayerX[2] <= width / 2 + 120 && intPlayerX[2] + 50 >= width / 2 + 120
+            && intPlayerY[2] + 50 >= height / 2 - 120 && intPlayerY[2] <= height / 2 - 40) {
+          intPlayerX[2] = width / 2 + 120;
+        }
+
+        // Right Side (Bottom)
+        if (intPlayerX[2] <= width / 2 + 120 && intPlayerX[2] + 50 >= width / 2 + 120
+            && intPlayerY[2] + 50 >= height / 2 + 40 && intPlayerY[2] <= height / 2 + 120) {
+          intPlayerX[2] = width / 2 + 120;
+        }
+
+        // public int[] intGaurdX3 = { 100, 300, 500, 200, 300 };
+        // public int[] intGaurdY3 = { 250, 200, 150, 400, 600 };
+        fill(0, 0, 255);
+        rect(intGaurdX3[0], intGaurdY3[0], 50, 50);
+        rect(intGaurdX3[1], intGaurdY3[1], 50, 50);
+        rect(intGaurdX3[2], intGaurdY3[2], 50, 50);
+        rect(intGaurdX3[4], intGaurdY3[4], 50, 50);
+
+        fill(160, 32, 240);
+        rect(intGaurdX3[3], intGaurdY3[3], 50, 50);
+        rect(intGaurdX3[5], intGaurdY3[5], 50, 50);
+
+        if (intGaurdX3[0] >= width - 70) {
+          boolDirection3[0] = false;
+        } else if (intGaurdX3[0] <= 20) {
+          boolDirection3[0] = true;
+        }
+
+        if (boolDirection3[0]) {
+          intGaurdX3[0] += 5;
+        } else {
+          intGaurdX3[0] -= 5;
+        }
+
+        if (intGaurdY3[1] >= height - 70) {
+          boolDirection3[1] = false;
+        } else if (intGaurdY3[1] <= 20) {
+          boolDirection3[1] = true;
+        }
+
+        if (boolDirection3[1]) {
+          intGaurdY3[1] += 5;
+        } else {
+          intGaurdY3[1] -= 5;
+        }
+
+        if (intGaurdX3[2] >= height - 70) {
+          boolDirection3[2] = false;
+        } else if (intGaurdX3[2] <= 20) {
+          boolDirection3[2] = true;
+        }
+
+        if (boolDirection3[2]) {
+          intGaurdX3[2] += 5;
+        } else {
+          intGaurdX3[2] -= 5;
+        }
+
+        if (intGaurdY3[3] >= height - 70) {
+          boolDirection3[3] = false;
+        } else if (intGaurdY3[3] <= 20) {
+          boolDirection3[3] = true;
+        }
+
+        if (boolDirection3[3]) {
+          intGaurdY3[3] += 5;
+        } else {
+          intGaurdY3[3] -= 5;
+        }
+
+        if (intGaurdX3[3] >= height - 70) {
+          boolDirection3[3] = false;
+        } else if (intGaurdX3[3] <= 20) {
+          boolDirection3[3] = true;
+        }
+
+        if (boolDirection3[3]) {
+          intGaurdX3[3] += 5;
+        } else {
+          intGaurdX3[3] -= 5;
+        }
+
+        if (intGaurdX3[4] >= height - 70) {
+          boolDirection3[4] = false;
+        } else if (intGaurdX3[4] <= 20) {
+          boolDirection3[4] = true;
+        }
+
+        if (boolDirection3[4]) {
+          intGaurdX3[4] += 5;
+        } else {
+          intGaurdX3[4] -= 5;
+        }
+
+        if (intGaurdX3[5] >= height - 70) {
+          boolDirection3[5] = false;
+        } else if (intGaurdX3[5] <= 20) {
+          boolDirection3[5] = true;
+        }
+
+        if (boolDirection3[5]) {
+          intGaurdX3[5] += 5;
+        } else {
+          intGaurdX3[5] -= 5;
+        }
+
+        if (intGaurdY3[5] >= height - 70) {
+          boolDirection3[5] = false;
+        } else if (intGaurdY3[5] <= 20) {
+          boolDirection3[5] = true;
+        }
+
+        if (boolDirection3[5]) {
+          intGaurdY3[5] += 5;
+        } else {
+          intGaurdY3[5] -= 5;
+        }
+
+        // Outer Walls
+        if (intPlayerX[2] < 20) {
+          intPlayerX[2] = 20;
+        }
+        if (intPlayerX[2] > (width - 70)) {
+          intPlayerX[2] = width - 70;
+        }
+        if (intPlayerY[2] > (height - 70)) {
+          intPlayerY[2] = height - 70;
+        }
+        if (intPlayerY[2] < 20) {
+          intPlayerY[2] = 20;
+        }
+
+        for (int i = 0; i < intGaurdY3.length; i++) {
+          if (intPlayerX[2] + 50 > intGaurdX3[i] && intPlayerX[2] < intGaurdX3[i] + 50
+              && intPlayerY[2] + 50 > intGaurdY3[i] && intPlayerY[2] < intGaurdY3[i] + 50) {
+            intLives -= 1;
+            intPlayerX[2] = 20;
+            intPlayerY[2] = 20;
+          }
+        }
+
+      }
+      if (intLevel == 4) {
+
+        // Reset Background
+        background(91, 193, 252);
+
+        // Display Text
+        textSize(40);
+        fill(0, 0, 0);
+        text("Well, well, well, guess you were\nable to complete the first challenge!", 50, 100);
+        text("Let see how well you fare against\nthe next challenge! Puzzle Solving!", 50, 300);
+
+        // Next Button
+        stroke(51, 51, 255);
+        strokeWeight(2);
+        fill(168, 219, 255);
+        rect(50, height - 120, 200, 75, 20);
+
+        fill(0, 0, 0);
+        textSize(40);
+        text("Next!", 100, height - 70);
+
+        // Making next button teact to cursor
+        if (mouseX >= 50 && mouseX <= 250 && mouseY >= height - 120
+            && mouseY <= height - 45) {
+
+          stroke(51, 51, 255);
+          strokeWeight(2);
+          fill(255, 0, 0);
+          rect(50, height - 120, 200, 75, 20);
+
+          fill(255, 255, 255);
+          textSize(40);
+          text("Next!", 100, height - 70);
+
+          // Checking if the user clicks the start button
+          if (mousePressed) {
+            intStage += 1;
+          }
+
+        }
+
+      }
+    }
+
+    if (intStage == 3) {
+
+      // Reset Background
+      background(91, 193, 252);
+
+      // Text 1
+      textSize(30);
+      fill(0, 0, 0);
+      text("Objective: Answer and solve each question and puzzle", width / 2 - 125, 150);
+
+      textSize(30);
+      fill(25, 153, 17);
+      text("green", width / 2 + 137, 150);
+
+      fill(25, 153, 17);
+      noStroke();
+      rect(width / 2 + 30, 200, 100, 100);
+
+      // Text 2
+      textSize(30);
+      fill(0, 0, 0);
+      text("Second Challenge: Solve the puzzles, answer questions", width / 2 - 225, 50);
+
     }
 
   }
