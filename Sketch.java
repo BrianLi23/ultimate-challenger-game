@@ -21,8 +21,7 @@ public class Sketch extends PApplet {
 
   // This variable keeps track of what question of the test the player is
   // on, and the game displays a different question/puzzle depending on this
-  // variable
-  // value
+  // variable value
   public int intQuestion = 0;
 
   // This array keeps track of the x positions of the player for the first
@@ -78,8 +77,13 @@ public class Sketch extends PApplet {
 
     // Ending Screen (if user dies)
     if (intStage == -1) {
-      text("You have loss all 3 of your lives, and deemed yourself unworthy of the title of Ultimate Challenger...", 50,
-          300);
+      // Reset Background
+      background(91, 193, 252);
+
+      textSize(40);
+      fill(0, 0, 0);
+      text("You have loss all 3 of your lives,\nand deemed yourself unworthy\nof the title of Ultimate Challenger...",
+          70, 100);
 
       // Start Button
       stroke(51, 51, 255);
@@ -88,9 +92,10 @@ public class Sketch extends PApplet {
       rect((width / 2) - 160, height / 2, 300, 100, 20);
 
       fill(0, 0, 0);
-      text("Try Again?", (width / 2) - 100, (height / 2) + 70);
+      textSize(50);
+      text("Try Again?", (width / 2) - 120, (height / 2) + 70);
 
-      // Making start button teact to cursor
+      // Making start button react to cursor
       if (mouseX >= (width / 2) - 160 && mouseX <= (width / 2) + 140 && mouseY >= (height / 2)
           && mouseY <= height / 2 + 100) {
 
@@ -100,7 +105,8 @@ public class Sketch extends PApplet {
         rect((width / 2) - 160, height / 2, 300, 100, 20);
 
         fill(255, 255, 255);
-        text("Try Again?", (width / 2) - 80, (height / 2) + 70);
+        textSize(50);
+        text("Try Again?", (width / 2) - 120, (height / 2) + 70);
       }
 
       // Checking if the user clicks the start button
@@ -131,7 +137,7 @@ public class Sketch extends PApplet {
       fill(0, 0, 0);
       text("Start!", (width / 2) - 80, (height / 2) + 70);
 
-      // Making start button teact to cursor
+      // Making start button react to cursor
       if (mouseX >= (width / 2) - 160 && mouseX <= (width / 2) + 140 && mouseY >= (height / 2)
           && mouseY <= height / 2 + 100) {
 
@@ -461,6 +467,12 @@ public class Sketch extends PApplet {
 
       if (intLevel == 1) {
 
+        if (keyPressed) {
+          if (keyCode == ALT) {
+            intLevel += 1;
+          }
+        }
+
         // Reset Background
         background(91, 193, 252);
 
@@ -564,7 +576,7 @@ public class Sketch extends PApplet {
         noStroke();
         rect(intPlayerX[0], intPlayerY[0], 50, 50);
 
-        // Showing Level, Number of Lives, Pause Button
+        // Showing Level, Number of Lives
         fill(255, 0, 0);
         textSize(40);
         text("Lives: " + intLives, width - 160, 65);
@@ -765,6 +777,12 @@ public class Sketch extends PApplet {
       }
 
       if (intLevel == 3) {
+
+        if (keyPressed) {
+          if (keyCode == ALT) {
+            intLevel += 1;
+          }
+        }
 
         // Reset Background
         background(91, 193, 252);
@@ -1002,6 +1020,11 @@ public class Sketch extends PApplet {
         // Reset Background
         background(91, 193, 252);
 
+        /// Draw Red Box on Cursor
+        noStroke();
+        fill(255, 0, 0);
+        rect(mouseX, mouseY, 20, 20);
+
         // Display Text
         textSize(40);
         fill(0, 0, 0);
@@ -1012,24 +1035,24 @@ public class Sketch extends PApplet {
         stroke(51, 51, 255);
         strokeWeight(2);
         fill(168, 219, 255);
-        rect(50, height - 120, 200, 75, 20);
+        rect(425, height - 120, 200, 75, 20);
 
         fill(0, 0, 0);
         textSize(40);
-        text("Next!", 100, height - 70);
+        text("Next!", 475, height - 70);
 
         // Making next button teact to cursor
-        if (mouseX >= 50 && mouseX <= 250 && mouseY >= height - 120
+        if (mouseX >= 475 && mouseX <= 625 && mouseY >= height - 120
             && mouseY <= height - 45) {
 
           stroke(51, 51, 255);
           strokeWeight(2);
           fill(255, 0, 0);
-          rect(50, height - 120, 200, 75, 20);
+          rect(425, height - 120, 200, 75, 20);
 
           fill(255, 255, 255);
           textSize(40);
-          text("Next!", 100, height - 70);
+          text("Next!", 475, height - 70);
 
           // Checking if the user clicks the start button
           if (mousePressed) {
@@ -1043,27 +1066,180 @@ public class Sketch extends PApplet {
 
     if (intStage == 3) {
 
-      // Reset Background
-      background(91, 193, 252);
+      if (intQuestion == 0) {
 
-      // Text 1
-      textSize(30);
-      fill(0, 0, 0);
-      text("Objective: Answer and solve each question and puzzle", width / 2 - 125, 150);
+        // Reset Background
+        background(91, 193, 252);
 
-      textSize(30);
-      fill(25, 153, 17);
-      text("green", width / 2 + 137, 150);
+        // Draw Red Box on Cursor
+        noStroke();
+        fill(255, 0, 0);
+        rect(mouseX, mouseY, 20, 20);
 
-      fill(25, 153, 17);
-      noStroke();
-      rect(width / 2 + 30, 200, 100, 100);
+        // Text 1
+        textSize(30);
+        fill(0, 0, 0);
+        text("                 Second Challenge:\nSolve the puzzles, answer questions!", width / 2 - 225, 50);
 
-      // Text 2
-      textSize(30);
-      fill(0, 0, 0);
-      text("Second Challenge: Solve the puzzles, answer questions", width / 2 - 225, 50);
+        // Text 2
+        textSize(30);
+        fill(0, 0, 0);
+        text(
+            "Objective: Using your mouse, try to solve\neach question or puzzle, clicking on\nthe wrong option will cost you a life!",
+            width / 2 - 225, 275);
 
+        // Next Button
+        stroke(51, 51, 255);
+        strokeWeight(2);
+        fill(168, 219, 255);
+        // 50 820
+        rect(260, 150, 200, 75, 20);
+
+        fill(0, 0, 0);
+        textSize(40);
+        text("Next!", 310, 200);
+
+        // Making start button teact to cursor
+        if (mouseX >= 260 && mouseX <= 460 && mouseY >= 150
+            && mouseY <= 225) {
+
+          stroke(51, 51, 255);
+          strokeWeight(2);
+          fill(255, 0, 0);
+          rect(260, 150, 200, 75, 20);
+
+          fill(255, 255, 255);
+          textSize(40);
+          text("Next!", 310, 200);
+
+          // Checking if the user clicks the start button
+          if (mousePressed) {
+            intQuestion = 1;
+          }
+        }
+      }
+
+      if (intQuestion == 1) {
+
+        // Reset Background
+        background(91, 193, 252);
+
+        // Draw Red Box on Cursor
+        noStroke();
+        fill(255, 0, 0);
+        rect(mouseX, mouseY, 20, 20);
+
+        // Checking if the user loses
+        if (intLives == 0) {
+          intStage = -1;
+        }
+
+        // Displaying player's lives
+        fill(255, 0, 0);
+        textSize(40);
+        text("Lives: " + intLives, width - 160, 65);
+
+        // Box 1
+        fill(255, 255, 0);
+        rect(0, 400, width / 2, 150);
+        fill(255, 255, 255);
+        text("32", 145, 475);
+
+        if (mouseX >= 0 && mouseX <= 350 && mouseY >= 400
+            && mouseY <= 550) {
+
+          fill(255, 255, 255);
+          rect(0, 400, width / 2, 150);
+
+          fill(0, 0, 0);
+          text("32", 145, 475);
+
+          if (mousePressed) {
+            intLives -= 1;
+            mouseX = 0;
+            mouseY = 0;
+          }
+        }
+
+        // Box 2
+        fill(0, 0, 255);
+        rect(width / 2, 400, width / 2, 150);
+        fill(255, 255, 255);
+        text("4", 520, 475);
+
+        if (mouseX >= width / 2 && mouseX <= width && mouseY >= 400
+            && mouseY <= 550) {
+
+          fill(255, 255, 255);
+          rect(width / 2, 400, width / 2, 150);
+
+          fill(0, 0, 0);
+          text("4", 520, 475);
+
+          if (mousePressed) {
+            intLives -= 1;
+            mouseX = 0;
+            mouseY = 0;
+          }
+        }
+
+        // Box 3
+        fill(0, 255, 0);
+        rect(0, height / 2 + 200, width / 2, height / 2);
+        fill(255, 255, 255);
+        text("10", 145, 635);
+
+        if (mouseX >= 0 && mouseX <= 350 && mouseY >= height / 2 + 200
+            && mouseY <= 700) {
+
+          fill(255, 255, 255);
+          rect(0, height / 2 + 200, width / 2, height / 2);
+
+          fill(0, 0, 0);
+          text("10", 145, 635);
+
+          if (mousePressed) {
+            intLives -= 1;
+            mouseX = 0;
+            mouseY = 0;
+          }
+        }
+
+        // Box 4
+        fill(255, 0, 0);
+        rect(width / 2, height / 2 + 200, width / 2, height / 2);
+        fill(255, 255, 255);
+        text("Wait what", 465, 635);
+
+        if (mouseX >= 350 && mouseX <= 700 && mouseY >= 550
+            && mouseY <= 700) {
+          fill(255, 255, 255);
+          rect(width / 2, height / 2 + 200, width / 2, height / 2);
+
+          fill(0, 0, 0);
+          text("Wait what", 465, 635);
+
+          if (mousePressed) {
+            intLives -= 1;
+            mouseX = 0;
+            mouseY = 0;
+          }
+        }
+
+        fill(0, 0, 0);
+        text("92 - 83?", width / 2 - 50, 100);
+
+        if (mouseX >= width / 2 - 70 && mouseX <= width / 2 - 20 && mouseY >= 70
+            && mouseY <= 110) {
+          fill(255, 255, 255);
+          text("9", width / 2 - 50, 100);
+
+          if (mousePressed) {
+            intQuestion += 1;
+          }
+
+        }
+      }
     }
 
   }
