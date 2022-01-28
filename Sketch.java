@@ -1535,10 +1535,9 @@ public class Sketch extends PApplet {
           rect(width / 2 - 100, height / 2 - 100, 200, 300);
 
           if (mousePressed) {
-            int intCardNumber = (int) random(1, 12);
+            int intCardNumber = (int) random(1, 11);
             fill(0, 0, 0);
             text(intCardNumber, width / 2 - 50, height / 2 + 90);
-            delay(5000);
 
             if (intCardNumber > intNumberGame) {
               intStage += 1;
@@ -1546,6 +1545,8 @@ public class Sketch extends PApplet {
 
             else {
               intLives -= 1;
+              mouseX = 0;
+              mouseY = 0;
             }
           }
         }
