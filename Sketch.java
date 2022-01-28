@@ -62,6 +62,9 @@ public class Sketch extends PApplet {
   public int[] intGaurdY3 = { 250, 200, 150, 400, 600, 300 };
   public boolean[] boolDirection3 = { true, true, true, true, true, true };
 
+  // Confetti Array
+  public float[] ConfettiY = new float[60];
+
   /**
    * Called once at the beginning of execution, put your size all in this method
    */
@@ -75,6 +78,10 @@ public class Sketch extends PApplet {
    * values here i.e background, stroke, fill etc.
    */
   public void setup() {
+    // Setting up confetti cariable
+    for (int i = 0; i < ConfettiY.length; i++) {
+      ConfettiY[i] = random(height);
+    }
   }
 
   /**
@@ -92,7 +99,7 @@ public class Sketch extends PApplet {
       text("You have loss all 3 of your lives,\nand deemed yourself unworthy\nof the title of Ultimate Challenger...",
           70, 100);
 
-      // Start Button
+      // Try Again Button
       stroke(51, 51, 255);
       strokeWeight(2);
       fill(168, 219, 255);
@@ -114,12 +121,99 @@ public class Sketch extends PApplet {
         fill(255, 255, 255);
         textSize(50);
         text("Try Again?", (width / 2) - 120, (height / 2) + 70);
+
+        // Checking if the user clicks the try again button, if so, reset game
+        if (mousePressed) {
+          intStage = 0;
+
+          // These variables determine the lives and coins of the player
+          intLives = 3;
+          intCoins = 0;
+
+          // This variable keeps track of what page of the introduction the player is on,
+          // and the game displays different information depending on this variable
+          // value
+          intIntroduction = 0;
+
+          // This variable keeps track of what level of the obstacle course the player is
+          // on, and the game displays a different level depending on this variable
+          // value
+          intLevel = 0;
+
+          // This variable keeps track of what question of the test the player is
+          // on, and the game displays a different question/puzzle depending on this
+          // variable value
+          intQuestion = 0;
+
+          // This variable keeps track of what stage of the card game the player is
+          // on, and the game displays a different sccreen depending on this
+          // variable value
+          intCard = 0;
+
+          // This array keeps track of the x positions of the player for the first
+          // challenge
+          for (int x = 0; x < intPlayerX.length; x++) {
+            intPlayerX[x] = 20;
+
+            // This array keeps track of the y positions of the player for the first
+            // challenge
+            for (int y = 0; y < intPlayerX.length; y++) {
+              intPlayerY[y] = 20;
+
+              // Variables for tracking WASD keys (in order to handle multiple games for first
+              // challenge)
+
+              WPressed = false;
+              APressed = false;
+              SPressed = false;
+              DPressed = false;
+
+              // Guard Positions (Level 1)
+              intGaurdX1[0] = 300;
+              intGaurdX1[1] = 450;
+              intGaurdY1[0] = 300;
+              intGaurdY1[1] = 450;
+              boolDirection1[0] = true;
+              boolDirection1[1] = true;
+
+              // Guard Positions (Level 2)
+              intGaurdX2[0] = 300;
+              intGaurdX2[1] = 450;
+              intGaurdX2[2] = 150;
+              intGaurdX2[3] = 200;
+              intGaurdX2[4] = 300;
+              intGaurdY2[0] = 300;
+              intGaurdY2[1] = 450;
+              intGaurdY2[2] = 150;
+              intGaurdY2[3] = 400;
+              intGaurdY2[4] = 600;
+              for (int a = 0; a < boolDirection2.length; a++) {
+                boolDirection2[a] = true;
+              }
+
+              // Guard Positions (Level 3)
+              intGaurdX3[0] = 100;
+              intGaurdX3[1] = 300;
+              intGaurdX3[2] = 500;
+              intGaurdX3[3] = 200;
+              intGaurdX3[4] = 300;
+              intGaurdX3[5] = 600;
+
+              intGaurdY3[0] = 250;
+              intGaurdY3[1] = 200;
+              intGaurdY3[2] = 150;
+              intGaurdY3[3] = 400;
+              intGaurdY3[4] = 600;
+              intGaurdY3[5] = 300;
+
+              for (int b = 0; b < boolDirection3.length; b++) {
+                boolDirection3[b] = true;
+              }
+            }
+          }
+        }
       }
 
-      // Checking if the user clicks the start button
-      if (mousePressed) {
-        // paste all variable
-      }
     }
 
     // Starting Screen
@@ -890,8 +984,6 @@ public class Sketch extends PApplet {
           intPlayerX[2] = width / 2 + 120;
         }
 
-        // public int[] intGaurdX3 = { 100, 300, 500, 200, 300 };
-        // public int[] intGaurdY3 = { 250, 200, 150, 400, 600 };
         fill(0, 0, 255);
         rect(intGaurdX3[0], intGaurdY3[0], 50, 50);
         rect(intGaurdX3[1], intGaurdY3[1], 50, 50);
@@ -1461,14 +1553,17 @@ public class Sketch extends PApplet {
         // Text 1
         textSize(30);
         fill(0, 0, 0);
-        text("Final Challenge: Win with luck", width / 2 - 225, 50);
+        text("Final Challenge: Win with luck", width / 2 - 200, 50);
 
         // Text 2
         textSize(30);
         fill(0, 0, 0);
         text(
-            "Objective: Rules are simple, click on the card in the middle of the screen and if you get a card number larger than the number displayed on the screen... you win!",
-            width / 2 - 225, 275);
+            "Objective: Rules are simple, click on the card in the\nmiddle of the screen and if you get a card number\nlarger than the number displayed on the screen...",
+            50, 175);
+
+        // Text 3
+        text("You win!", width / 2 - 50, 375);
 
         // Next Button
         stroke(51, 51, 255);
@@ -1557,8 +1652,35 @@ public class Sketch extends PApplet {
     if (intStage == 5) {
       // Reset Background
       background(91, 193, 252);
-    }
 
+      // Red Box
+      fill(255, 0, 0);
+      rect(50, 500, 200, 200);
+
+      // Text
+      fill(0, 0, 0);
+      text("You have completed the Ultimate\nChallenge! Well done!", 50, 100);
+      text("You are now deemed as:\nTHE ULTIMATE CHALLENGER!!", 50, 300);
+
+      // Confetti Dropping
+      for (int i = 0; i < ConfettiY.length; i++) {
+        int ConfettiX = width * i / ConfettiY.length;
+        noStroke();
+
+        int intR = (int) random(0, 256);
+        int intG = (int) random(0, 256);
+        int intB = (int) random(0, 256);
+
+        fill(intR, intG, intB);
+        rect(ConfettiX, ConfettiY[i], 5, 5);
+        ConfettiY[i] += 5;
+
+        if (ConfettiY[i] > height) {
+          ConfettiY[i] = 0;
+        }
+      }
+
+    }
   }
 
   public void keyPressed() {
