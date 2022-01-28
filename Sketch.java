@@ -1,3 +1,5 @@
+import javax.swing.text.DefaultStyledDocument.ElementSpec;
+
 import processing.core.PApplet;
 
 public class Sketch extends PApplet {
@@ -23,6 +25,11 @@ public class Sketch extends PApplet {
   // on, and the game displays a different question/puzzle depending on this
   // variable value
   public int intQuestion = 0;
+
+  // This variable keeps track of what stage of the card game the player is
+  // on, and the game displays a different sccreen depending on this
+  // variable value
+  public int intCard = 0;
 
   // This array keeps track of the x positions of the player for the first
   // challenge
@@ -1374,13 +1381,181 @@ public class Sketch extends PApplet {
 
         // Prompt
         fill(0, 0, 0);
-        text("The answers here somewhere...?", 230, 100);
+        text("The answers here somewhere...?", 75, 100);
 
         // Hidden Text
         fill(91, 193, 252);
-        text("HERE!", 230, 100);
+        text("HERE!", 492, 150);
+
+        if (mouseX >= 492 && mouseX <= 592 && mouseY >= 120
+            && mouseY <= 150) {
+          fill(255, 0, 0);
+          text("HERE!", 492, 150);
+
+          if (mousePressed) {
+            intQuestion += 1;
+          }
+        }
 
       }
+
+      if (intQuestion == 4) {
+
+        // Reset Background
+        background(91, 193, 252);
+
+        // Draw Red Box on Cursor
+        noStroke();
+        fill(255, 0, 0);
+        rect(mouseX, mouseY, 20, 20);
+
+        // Text
+        fill(0, 0, 0);
+        textSize(40);
+        text("          Well aren't you a bright one...\nwell lets get you into the last challenge:", 25, 150);
+        text("A TEST OF LUCK! (Just don't question it)", 25, 400);
+
+        // Next Button
+        stroke(51, 51, 255);
+        strokeWeight(2);
+        fill(168, 219, 255);
+        rect(50, height - 120, 200, 75, 20);
+
+        fill(0, 0, 0);
+        textSize(40);
+        text("Next!", 100, height - 70);
+
+        // Making start button teact to cursor
+        if (mouseX >= 50 && mouseX <= 250 && mouseY >= height - 120
+            && mouseY <= height - 45) {
+
+          stroke(51, 51, 255);
+          strokeWeight(2);
+          fill(255, 0, 0);
+          rect(50, height - 120, 200, 75, 20);
+
+          fill(255, 255, 255);
+          textSize(40);
+          text("Next!", 100, height - 70);
+
+          // Checking if the user clicks the start button
+          if (mousePressed) {
+            intStage += 1;
+            mouseX = 0;
+            mouseY = 0;
+          }
+        }
+      }
+    }
+
+    if (intStage == 4) {
+      if (intCard == 0) {
+        // Reset Background
+        background(91, 193, 252);
+
+        // Draw Red Box on Cursor
+        noStroke();
+        fill(255, 0, 0);
+        rect(mouseX, mouseY, 20, 20);
+
+        // Text 1
+        textSize(30);
+        fill(0, 0, 0);
+        text("Final Challenge: Win with luck", width / 2 - 225, 50);
+
+        // Text 2
+        textSize(30);
+        fill(0, 0, 0);
+        text(
+            "Objective: Rules are simple, click on the card in the middle of the screen and if you get a card number larger than the number displayed on the screen... you win!",
+            width / 2 - 225, 275);
+
+        // Next Button
+        stroke(51, 51, 255);
+        strokeWeight(2);
+        fill(168, 219, 255);
+        rect(50, height - 120, 200, 75, 20);
+
+        fill(0, 0, 0);
+        textSize(40);
+        text("Next!", 100, height - 70);
+
+        // Making start button teact to cursor
+        if (mouseX >= 50 && mouseX <= 250 && mouseY >= height - 120
+            && mouseY <= height - 45) {
+
+          stroke(51, 51, 255);
+          strokeWeight(2);
+          fill(255, 0, 0);
+          rect(50, height - 120, 200, 75, 20);
+
+          fill(255, 255, 255);
+          textSize(40);
+          text("Next!", 100, height - 70);
+
+          // Checking if the user clicks the start button
+          if (mousePressed) {
+            intCard += 1;
+          }
+        }
+      }
+
+      if (intCard == 1) {
+        // Reset Background
+        background(91, 193, 252);
+
+        // Draw Red Box on Cursor
+        noStroke();
+        fill(255, 0, 0);
+        rect(mouseX, mouseY, 20, 20);
+
+        // Checking if the user loses
+        if (intLives == 0) {
+          intStage = -1;
+        }
+
+        // Displaying player's lives
+        fill(255, 0, 0);
+        textSize(40);
+        text("Lives: " + intLives, width - 160, 65);
+
+        // Card
+        fill(255, 0, 0);
+        rect(width / 2 - 100, height / 2 - 100, 200, 300);
+
+        // Number to beat
+        fill(0, 0, 0);
+        int intNumberGame = (int) random(1, 6);
+        text(intNumberGame, width / 2, 150);
+
+        // Checking if player is clicking on card and if clicked, display number.
+        if (mouseX >= width / 2 - 100 && mouseX <= width / 2 + 100 && mouseY >= height / 2 - 100
+            && mouseY <= height / 2 + 200) {
+          fill(230, 0, 0);
+          rect(width / 2 - 100, height / 2 - 100, 200, 300);
+
+          if (mousePressed) {
+            int intCardNumber = (int) random(1, 12);
+            fill(0, 0, 0);
+            text(intCardNumber, width / 2 - 50, height / 2 + 90);
+            delay(5000);
+
+            if (intCardNumber > intNumberGame) {
+              intStage += 1;
+            }
+
+            else {
+              intLives -= 1;
+            }
+          }
+        }
+
+      }
+    }
+
+    if (intStage == 5) {
+      // Reset Background
+      background(91, 193, 252);
     }
 
   }
