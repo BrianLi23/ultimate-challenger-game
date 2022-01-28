@@ -1240,6 +1240,147 @@ public class Sketch extends PApplet {
 
         }
       }
+
+      if (intQuestion == 2) {
+
+        // Reset Background
+        background(91, 193, 252);
+
+        // Draw Red Box on Cursor
+        noStroke();
+        fill(255, 0, 0);
+        rect(mouseX, mouseY, 20, 20);
+
+        // Checking if the user loses
+        if (intLives == 0) {
+          intStage = -1;
+        }
+
+        // Displaying player's lives
+        fill(255, 0, 0);
+        textSize(40);
+        text("Lives: " + intLives, width - 160, 65);
+
+        // Question
+        fill(0, 0, 0);
+        text("\"Choose\" food", 230, 100);
+
+        // Box 1
+        fill(255, 255, 0);
+        rect(0, 400, width / 2, 150);
+        fill(255, 255, 255);
+        text("Eyeball", 115, 475);
+
+        if (mouseX >= 0 && mouseX <= 350 && mouseY >= 400
+            && mouseY <= 550) {
+
+          fill(255, 255, 255);
+          rect(0, 400, width / 2, 150);
+
+          fill(0, 0, 0);
+          text("Eyeball", 115, 475);
+
+          if (mousePressed) {
+            intLives -= 1;
+            mouseX = 0;
+            mouseY = 0;
+          }
+        }
+
+        // Box 2
+        fill(0, 0, 255);
+        rect(width / 2, 400, width / 2, 150);
+        fill(255, 255, 255);
+        text("Mouth", 480, 475);
+
+        if (mouseX >= width / 2 && mouseX <= width && mouseY >= 400
+            && mouseY <= 550) {
+
+          fill(255, 255, 255);
+          rect(width / 2, 400, width / 2, 150);
+
+          fill(0, 0, 0);
+          text("Mouth", 480, 475);
+
+          if (mousePressed) {
+            intQuestion += 1;
+          }
+        }
+
+        // Box 3
+        fill(0, 255, 0);
+        rect(0, height / 2 + 200, width / 2, height / 2);
+        fill(255, 255, 255);
+        text("Gloves", 115, 635);
+
+        if (mouseX >= 0 && mouseX <= 350 && mouseY >= height / 2 + 200
+            && mouseY <= 700) {
+
+          fill(255, 255, 255);
+          rect(0, height / 2 + 200, width / 2, height / 2);
+
+          fill(0, 0, 0);
+          text("Gloves", 115, 635);
+
+          if (mousePressed) {
+            intLives -= 1;
+            mouseX = 0;
+            mouseY = 0;
+          }
+        }
+
+        // Box 4
+        fill(255, 0, 0);
+        rect(width / 2, height / 2 + 200, width / 2, height / 2);
+        fill(255, 255, 255);
+        text("GASOLINEEE", 435, 635);
+
+        if (mouseX >= 350 && mouseX <= 700 && mouseY >= 550
+            && mouseY <= 700) {
+          fill(255, 255, 255);
+          rect(width / 2, height / 2 + 200, width / 2, height / 2);
+
+          fill(0, 0, 0);
+          text("GASOLINEEE", 435, 635);
+
+          if (mousePressed) {
+            intLives -= 1;
+            mouseX = 0;
+            mouseY = 0;
+          }
+        }
+
+      }
+
+      if (intQuestion == 3) {
+
+        // Reset Background
+        background(91, 193, 252);
+
+        // Draw Red Box on Cursor
+        noStroke();
+        fill(255, 0, 0);
+        rect(mouseX, mouseY, 20, 20);
+
+        // Checking if the user loses
+        if (intLives == 0) {
+          intStage = -1;
+        }
+
+        // Displaying player's lives
+        fill(255, 0, 0);
+        textSize(40);
+        text("Lives: " + intLives, width - 160, 65);
+
+        // Prompt
+        fill(0, 0, 0);
+        text("The answers here somewhere...?", 230, 100);
+
+        // Hidden Text
+        fill(91, 193, 252);
+        text("HERE!", 230, 100);
+
+      }
     }
 
   }
