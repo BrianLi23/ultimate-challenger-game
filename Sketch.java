@@ -528,7 +528,7 @@ public class Sketch extends PApplet {
         textSize(40);
         text("Next!", 100, height - 70);
 
-        // Making mext button teact to cursor
+        // Making mext button react to cursor
         if (mouseX >= 50 && mouseX <= 250 && mouseY >= height - 120 && mouseY <= height - 45) {
 
           stroke(51, 51, 255);
@@ -583,6 +583,8 @@ public class Sketch extends PApplet {
         rect(intGaurdX1[0], intGaurdY1[0], 50, 50);
         rect(intGaurdX1[1], intGaurdY1[1], 50, 50);
 
+        // Brute force code for checking if a gaurd has hit a wall, then changing it's
+        // direction based on a boolean variable.
         if (intGaurdX1[0] >= width - 70) {
           boolDirection1[0] = false;
         } else if (intGaurdX1[0] <= 20) {
@@ -801,6 +803,8 @@ public class Sketch extends PApplet {
         rect(intGaurdX2[3], intGaurdY2[3], 50, 50);
         rect(intGaurdX2[4], intGaurdY2[4], 50, 50);
 
+        // Brute force code for checking if a gaurd has hit a wall, then changing it's
+        // direction based on a boolean variable.
         if (intGaurdX2[0] >= width - 70) {
           boolDirection2[0] = false;
         } else if (intGaurdX2[0] <= 340) {
@@ -979,6 +983,8 @@ public class Sketch extends PApplet {
         rect(intGaurdX3[3], intGaurdY3[3], 50, 50);
         rect(intGaurdX3[5], intGaurdY3[5], 50, 50);
 
+        // Brute force code for checking if a gaurd has hit a wall, then changing it's
+        // direction based on a boolean variable.
         if (intGaurdX3[0] >= width - 70) {
           boolDirection3[0] = false;
         } else if (intGaurdX3[0] <= 20) {
@@ -1125,7 +1131,7 @@ public class Sketch extends PApplet {
         textSize(40);
         text("Next!", 475, height - 70);
 
-        // Making next button teact to cursor
+        // Making next button react to cursor
         if (mouseX >= 475 && mouseX <= 625 && mouseY >= height - 120
             && mouseY <= height - 45) {
 
@@ -1183,7 +1189,7 @@ public class Sketch extends PApplet {
         textSize(40);
         text("Next!", 310, 200);
 
-        // Making start button teact to cursor
+        // Making start button react to cursor
         if (mouseX >= 260 && mouseX <= 460 && mouseY >= 150 && mouseY <= 225) {
 
           stroke(51, 51, 255);
@@ -1491,7 +1497,7 @@ public class Sketch extends PApplet {
         textSize(40);
         text("Next!", 100, height - 70);
 
-        // Making start button teact to cursor
+        // Making start button react to cursor
         if (mouseX >= 50 && mouseX <= 250 && mouseY >= height - 120 && mouseY <= height - 45) {
 
           stroke(51, 51, 255);
@@ -1548,7 +1554,7 @@ public class Sketch extends PApplet {
         textSize(40);
         text("Next!", 100, height - 70);
 
-        // Making start button teact to cursor
+        // Making start button react to cursor
         if (mouseX >= 50 && mouseX <= 250 && mouseY >= height - 120 && mouseY <= height - 45) {
 
           stroke(51, 51, 255);
@@ -1586,7 +1592,7 @@ public class Sketch extends PApplet {
         textSize(40);
         text("Lives: " + intLives, width - 160, 65);
 
-        // Card
+        // Card Shape
         fill(255, 0, 0);
         rect(width / 2 - 100, height / 2 - 100, 200, 300);
 
@@ -1636,9 +1642,7 @@ public class Sketch extends PApplet {
       text("You are now deemed as:\nTHE ULTIMATE CHALLENGER!!", 50, 300);
 
       // Confetti Dropping
-      for (
-
-          int i = 0; i < ConfettiY.length; i++) {
+      for (int i = 0; i < ConfettiY.length; i++) {
         int ConfettiX = width * i / ConfettiY.length;
 
         noStroke();
@@ -1659,8 +1663,12 @@ public class Sketch extends PApplet {
     }
   }
 
+  /**
+   * This function is checking to see when a specific key is pressed
+   */
   public void keyPressed() {
-    // To handle multiple keys in challenge 1
+    // To handle multiple keys in challenge 1, if a specifc key is pressed, change
+    // boolean value.
     if (intStage == 2) {
       if (key == 'w' || key == 'W') {
         WPressed = true;
