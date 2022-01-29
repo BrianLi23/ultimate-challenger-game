@@ -8,8 +8,8 @@ The objective of the game is to complete the various set of challenges that is p
 Gameplay mechanics and/or user interaction  
 This game will have two different gameplay mechanics. For the game's first set of challenges, the player will be using keys (WASD controls) to control their character. During the second stage of challenges, the player will be using his cursor to interact with the game (ex: clicking, dragging). At any point of the game, the player can press ESC. to pause the game.
 
-Lives and Coins  
-The player has three hearts in total throughout the game, if he loses all three of their hearts, the game will end and the player will have to restart from the beginning. Additonally, coins will be scattered throughout the game and if a certain amount of coins are collected by the player, they will earn a certain achievement.
+Lives 
+The player has three hearts in total throughout the game, if he loses all three of their hearts, the game will end and the player will have to restart from the beginning.
 
 
 Limitations  

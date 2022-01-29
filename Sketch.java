@@ -368,7 +368,7 @@ public class Sketch extends PApplet {
 
         fill(255, 0, 0);
         textSize(20);
-        String textBoxMessage = "There will also be coins that can be collected\nthroughout the game, either through finding\nsecret passages or completing hidden\nmissions, or they're right out in the open. If\nyou collect _ amount of coins, you will\nbe titled the GRAND Ultimate Challenger!";
+        String textBoxMessage = "There will also be coins that can be collected\nthroughout the game, either through finding\nsecret passages or completing hidden\nmissions, or they're right out in the open. If\nyou collect 4 amount of coins, you will\nbe titled the GRAND Ultimate Challenger!";
         text(textBoxMessage, 45, 55);
 
         // Red Block
