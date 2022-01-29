@@ -41,7 +41,6 @@ public class Sketch extends PApplet {
 
   // Variables for tracking WASD keys (in order to handle multiple games for first
   // challenge)
-
   public boolean WPressed = false;
   public boolean APressed = false;
   public boolean SPressed = false;
@@ -65,11 +64,13 @@ public class Sketch extends PApplet {
   // Confetti Array
   public float[] ConfettiY = new float[60];
 
+  // Number to beat in final challenge
+  int intNumberGame = (int) random(1, 6);
+
   /**
    * Called once at the beginning of execution, put your size all in this method
    */
   public void settings() {
-    // put your size call here
     size(700, 700);
   }
 
@@ -91,9 +92,11 @@ public class Sketch extends PApplet {
 
     // Ending Screen (if user dies)
     if (intStage == -1) {
+
       // Reset Background
       background(91, 193, 252);
 
+      // Display Text
       textSize(40);
       fill(0, 0, 0);
       text("You have loss all 3 of your lives,\nand deemed yourself unworthy\nof the title of Ultimate Challenger...",
@@ -109,7 +112,7 @@ public class Sketch extends PApplet {
       textSize(50);
       text("Try Again?", (width / 2) - 120, (height / 2) + 70);
 
-      // Making start button react to cursor
+      // Making try again button react to cursor
       if (mouseX >= (width / 2) - 160 && mouseX <= (width / 2) + 140 && mouseY >= (height / 2)
           && mouseY <= height / 2 + 100) {
 
@@ -122,98 +125,76 @@ public class Sketch extends PApplet {
         textSize(50);
         text("Try Again?", (width / 2) - 120, (height / 2) + 70);
 
-        // Checking if the user clicks the try again button, if so, reset game
+        // Checking if the user clicks the try again button, if so, reset all global
+        // variables.
         if (mousePressed) {
           intStage = 0;
 
-          // These variables determine the lives and coins of the player
           intLives = 3;
           intCoins = 0;
 
-          // This variable keeps track of what page of the introduction the player is on,
-          // and the game displays different information depending on this variable
-          // value
           intIntroduction = 0;
 
-          // This variable keeps track of what level of the obstacle course the player is
-          // on, and the game displays a different level depending on this variable
-          // value
           intLevel = 0;
 
-          // This variable keeps track of what question of the test the player is
-          // on, and the game displays a different question/puzzle depending on this
-          // variable value
           intQuestion = 0;
 
-          // This variable keeps track of what stage of the card game the player is
-          // on, and the game displays a different sccreen depending on this
-          // variable value
           intCard = 0;
 
-          // This array keeps track of the x positions of the player for the first
-          // challenge
           for (int x = 0; x < intPlayerX.length; x++) {
             intPlayerX[x] = 20;
+          }
 
-            // This array keeps track of the y positions of the player for the first
-            // challenge
-            for (int y = 0; y < intPlayerX.length; y++) {
-              intPlayerY[y] = 20;
+          for (int y = 0; y < intPlayerX.length; y++) {
+            intPlayerY[y] = 20;
+          }
 
-              // Variables for tracking WASD keys (in order to handle multiple games for first
-              // challenge)
+          WPressed = false;
+          APressed = false;
+          SPressed = false;
+          DPressed = false;
 
-              WPressed = false;
-              APressed = false;
-              SPressed = false;
-              DPressed = false;
+          intGaurdX1[0] = 300;
+          intGaurdX1[1] = 450;
+          intGaurdY1[0] = 300;
+          intGaurdY1[1] = 450;
+          boolDirection1[0] = true;
+          boolDirection1[1] = true;
 
-              // Guard Positions (Level 1)
-              intGaurdX1[0] = 300;
-              intGaurdX1[1] = 450;
-              intGaurdY1[0] = 300;
-              intGaurdY1[1] = 450;
-              boolDirection1[0] = true;
-              boolDirection1[1] = true;
+          intGaurdX2[0] = 300;
+          intGaurdX2[1] = 450;
+          intGaurdX2[2] = 150;
+          intGaurdX2[3] = 200;
+          intGaurdX2[4] = 300;
+          intGaurdY2[0] = 300;
+          intGaurdY2[1] = 450;
+          intGaurdY2[2] = 150;
+          intGaurdY2[3] = 400;
+          intGaurdY2[4] = 600;
 
-              // Guard Positions (Level 2)
-              intGaurdX2[0] = 300;
-              intGaurdX2[1] = 450;
-              intGaurdX2[2] = 150;
-              intGaurdX2[3] = 200;
-              intGaurdX2[4] = 300;
-              intGaurdY2[0] = 300;
-              intGaurdY2[1] = 450;
-              intGaurdY2[2] = 150;
-              intGaurdY2[3] = 400;
-              intGaurdY2[4] = 600;
-              for (int a = 0; a < boolDirection2.length; a++) {
-                boolDirection2[a] = true;
-              }
+          for (int a = 0; a < boolDirection2.length; a++) {
+            boolDirection2[a] = true;
+          }
 
-              // Guard Positions (Level 3)
-              intGaurdX3[0] = 100;
-              intGaurdX3[1] = 300;
-              intGaurdX3[2] = 500;
-              intGaurdX3[3] = 200;
-              intGaurdX3[4] = 300;
-              intGaurdX3[5] = 600;
+          intGaurdX3[0] = 100;
+          intGaurdX3[1] = 300;
+          intGaurdX3[2] = 500;
+          intGaurdX3[3] = 200;
+          intGaurdX3[4] = 300;
+          intGaurdX3[5] = 600;
 
-              intGaurdY3[0] = 250;
-              intGaurdY3[1] = 200;
-              intGaurdY3[2] = 150;
-              intGaurdY3[3] = 400;
-              intGaurdY3[4] = 600;
-              intGaurdY3[5] = 300;
+          intGaurdY3[0] = 250;
+          intGaurdY3[1] = 200;
+          intGaurdY3[2] = 150;
+          intGaurdY3[3] = 400;
+          intGaurdY3[4] = 600;
+          intGaurdY3[5] = 300;
 
-              for (int b = 0; b < boolDirection3.length; b++) {
-                boolDirection3[b] = true;
-              }
-            }
+          for (int b = 0; b < boolDirection3.length; b++) {
+            boolDirection3[b] = true;
           }
         }
       }
-
     }
 
     // Starting Screen
@@ -221,8 +202,6 @@ public class Sketch extends PApplet {
 
       // Reset Background
       background(91, 193, 252);
-
-      // Variables
 
       // Display Text
       textSize(60);
@@ -279,7 +258,9 @@ public class Sketch extends PApplet {
 
         fill(255, 0, 0);
         textSize(20);
+
         String textBoxMessage = "Hello fellow red block! My name is... uh... red!\nI am please to meet one of our newest and\nmost promising candidate for the Ultimate\nChallenger! The title of Ultimate Challenger\nis only given to the selected few individuals\nwho can pass our gruesome series of test.";
+
         text(textBoxMessage, 45, 55);
 
         // Red Block
@@ -301,7 +282,9 @@ public class Sketch extends PApplet {
 
       }
 
-      if (intIntroduction == 1) {
+      if (intIntroduction == 1)
+
+      {
 
         // Reset Background
         background(91, 193, 252);
@@ -545,9 +528,8 @@ public class Sketch extends PApplet {
         textSize(40);
         text("Next!", 100, height - 70);
 
-        // Making start button teact to cursor
-        if (mouseX >= 50 && mouseX <= 250 && mouseY >= height - 120
-            && mouseY <= height - 45) {
+        // Making mext button teact to cursor
+        if (mouseX >= 50 && mouseX <= 250 && mouseY >= height - 120 && mouseY <= height - 45) {
 
           stroke(51, 51, 255);
           strokeWeight(2);
@@ -568,6 +550,7 @@ public class Sketch extends PApplet {
 
       if (intLevel == 1) {
 
+        // Used to skip challenge 1 (Used for testing purposes)
         if (keyPressed) {
           if (keyCode == ALT) {
             intLevel += 1;
@@ -692,7 +675,9 @@ public class Sketch extends PApplet {
         }
       }
 
-      if (intLevel == 2) {
+      if (intLevel == 2)
+
+      {
 
         // Reset Background
         background(91, 193, 252);
@@ -1199,8 +1184,7 @@ public class Sketch extends PApplet {
         text("Next!", 310, 200);
 
         // Making start button teact to cursor
-        if (mouseX >= 260 && mouseX <= 460 && mouseY >= 150
-            && mouseY <= 225) {
+        if (mouseX >= 260 && mouseX <= 460 && mouseY >= 150 && mouseY <= 225) {
 
           stroke(51, 51, 255);
           strokeWeight(2);
@@ -1244,8 +1228,7 @@ public class Sketch extends PApplet {
         fill(255, 255, 255);
         text("32", 145, 475);
 
-        if (mouseX >= 0 && mouseX <= 350 && mouseY >= 400
-            && mouseY <= 550) {
+        if (mouseX >= 0 && mouseX <= 350 && mouseY >= 400 && mouseY <= 550) {
 
           fill(255, 255, 255);
           rect(0, 400, width / 2, 150);
@@ -1266,8 +1249,7 @@ public class Sketch extends PApplet {
         fill(255, 255, 255);
         text("4", 520, 475);
 
-        if (mouseX >= width / 2 && mouseX <= width && mouseY >= 400
-            && mouseY <= 550) {
+        if (mouseX >= width / 2 && mouseX <= width && mouseY >= 400 && mouseY <= 550) {
 
           fill(255, 255, 255);
           rect(width / 2, 400, width / 2, 150);
@@ -1288,8 +1270,7 @@ public class Sketch extends PApplet {
         fill(255, 255, 255);
         text("10", 145, 635);
 
-        if (mouseX >= 0 && mouseX <= 350 && mouseY >= height / 2 + 200
-            && mouseY <= 700) {
+        if (mouseX >= 0 && mouseX <= 350 && mouseY >= height / 2 + 200 && mouseY <= 700) {
 
           fill(255, 255, 255);
           rect(0, height / 2 + 200, width / 2, height / 2);
@@ -1310,8 +1291,7 @@ public class Sketch extends PApplet {
         fill(255, 255, 255);
         text("Wait what", 465, 635);
 
-        if (mouseX >= 350 && mouseX <= 700 && mouseY >= 550
-            && mouseY <= 700) {
+        if (mouseX >= 350 && mouseX <= 700 && mouseY >= 550 && mouseY <= 700) {
           fill(255, 255, 255);
           rect(width / 2, height / 2 + 200, width / 2, height / 2);
 
@@ -1328,8 +1308,7 @@ public class Sketch extends PApplet {
         fill(0, 0, 0);
         text("92 - 83?", width / 2 - 50, 100);
 
-        if (mouseX >= width / 2 - 70 && mouseX <= width / 2 - 20 && mouseY >= 70
-            && mouseY <= 110) {
+        if (mouseX >= width / 2 - 70 && mouseX <= width / 2 - 20 && mouseY >= 70 && mouseY <= 110) {
           fill(255, 255, 255);
           text("9", width / 2 - 50, 100);
 
@@ -1370,8 +1349,7 @@ public class Sketch extends PApplet {
         fill(255, 255, 255);
         text("Eyeball", 115, 475);
 
-        if (mouseX >= 0 && mouseX <= 350 && mouseY >= 400
-            && mouseY <= 550) {
+        if (mouseX >= 0 && mouseX <= 350 && mouseY >= 400 && mouseY <= 550) {
 
           fill(255, 255, 255);
           rect(0, 400, width / 2, 150);
@@ -1392,8 +1370,7 @@ public class Sketch extends PApplet {
         fill(255, 255, 255);
         text("Mouth", 480, 475);
 
-        if (mouseX >= width / 2 && mouseX <= width && mouseY >= 400
-            && mouseY <= 550) {
+        if (mouseX >= width / 2 && mouseX <= width && mouseY >= 400 && mouseY <= 550) {
 
           fill(255, 255, 255);
           rect(width / 2, 400, width / 2, 150);
@@ -1412,8 +1389,7 @@ public class Sketch extends PApplet {
         fill(255, 255, 255);
         text("Gloves", 115, 635);
 
-        if (mouseX >= 0 && mouseX <= 350 && mouseY >= height / 2 + 200
-            && mouseY <= 700) {
+        if (mouseX >= 0 && mouseX <= 350 && mouseY >= height / 2 + 200 && mouseY <= 700) {
 
           fill(255, 255, 255);
           rect(0, height / 2 + 200, width / 2, height / 2);
@@ -1434,8 +1410,7 @@ public class Sketch extends PApplet {
         fill(255, 255, 255);
         text("GASOLINEEE", 435, 635);
 
-        if (mouseX >= 350 && mouseX <= 700 && mouseY >= 550
-            && mouseY <= 700) {
+        if (mouseX >= 350 && mouseX <= 700 && mouseY >= 550 && mouseY <= 700) {
           fill(255, 255, 255);
           rect(width / 2, height / 2 + 200, width / 2, height / 2);
 
@@ -1479,8 +1454,7 @@ public class Sketch extends PApplet {
         fill(91, 193, 252);
         text("HERE!", 492, 150);
 
-        if (mouseX >= 492 && mouseX <= 592 && mouseY >= 120
-            && mouseY <= 150) {
+        if (mouseX >= 492 && mouseX <= 592 && mouseY >= 120 && mouseY <= 150) {
           fill(255, 0, 0);
           text("HERE!", 492, 150);
 
@@ -1518,8 +1492,7 @@ public class Sketch extends PApplet {
         text("Next!", 100, height - 70);
 
         // Making start button teact to cursor
-        if (mouseX >= 50 && mouseX <= 250 && mouseY >= height - 120
-            && mouseY <= height - 45) {
+        if (mouseX >= 50 && mouseX <= 250 && mouseY >= height - 120 && mouseY <= height - 45) {
 
           stroke(51, 51, 255);
           strokeWeight(2);
@@ -1576,8 +1549,7 @@ public class Sketch extends PApplet {
         text("Next!", 100, height - 70);
 
         // Making start button teact to cursor
-        if (mouseX >= 50 && mouseX <= 250 && mouseY >= height - 120
-            && mouseY <= height - 45) {
+        if (mouseX >= 50 && mouseX <= 250 && mouseY >= height - 120 && mouseY <= height - 45) {
 
           stroke(51, 51, 255);
           strokeWeight(2);
@@ -1620,8 +1592,7 @@ public class Sketch extends PApplet {
 
         // Number to beat
         fill(0, 0, 0);
-        int intNumberGame = (int) random(1, 6);
-        text(intNumberGame, width / 2, 150);
+        text(intNumberGame, width / 2 - 20, 150);
 
         // Checking if player is clicking on card and if clicked, display number.
         if (mouseX >= width / 2 - 100 && mouseX <= width / 2 + 100 && mouseY >= height / 2 - 100
@@ -1629,10 +1600,12 @@ public class Sketch extends PApplet {
           fill(230, 0, 0);
           rect(width / 2 - 100, height / 2 - 100, 200, 300);
 
+          int intCardNumber = (int) random(1, 11);
+
+          fill(0, 0, 0);
+          text(intCardNumber, width / 2 - 20, height / 2 + 75);
+
           if (mousePressed) {
-            int intCardNumber = (int) random(1, 11);
-            fill(0, 0, 0);
-            text(intCardNumber, width / 2 - 50, height / 2 + 90);
 
             if (intCardNumber > intNumberGame) {
               intStage += 1;
@@ -1663,8 +1636,11 @@ public class Sketch extends PApplet {
       text("You are now deemed as:\nTHE ULTIMATE CHALLENGER!!", 50, 300);
 
       // Confetti Dropping
-      for (int i = 0; i < ConfettiY.length; i++) {
+      for (
+
+          int i = 0; i < ConfettiY.length; i++) {
         int ConfettiX = width * i / ConfettiY.length;
+
         noStroke();
 
         int intR = (int) random(0, 256);
@@ -1705,13 +1681,14 @@ public class Sketch extends PApplet {
   }
 
   /**
-   * Called once at the beginning of execution. Add initial set up
-   * values here i.e background, stroke, fill etc.
+   * This function is checking when a key is released, usually to check if a
+   * certain key is pressed and then released or if it has been released.
    */
   public void keyReleased() {
-    // Left and right control on stage 1 (Introduction Part)
+    // Checking for left and right keys pressed on stage 1 (Introduction Part)
     if (intStage == 1) {
 
+      // Checking for part 0 of introduction
       if (intIntroduction == 0) {
 
         if (keyCode == RIGHT) {
@@ -1720,6 +1697,7 @@ public class Sketch extends PApplet {
 
       }
 
+      // Checking for part 1 of introduction
       else if (intIntroduction == 1) {
         if (keyCode == RIGHT) {
           intIntroduction = 2;
@@ -1731,6 +1709,7 @@ public class Sketch extends PApplet {
 
       }
 
+      // Checking for part 2 of introduction
       else if (intIntroduction == 2) {
 
         if (keyCode == RIGHT) {
@@ -1743,6 +1722,7 @@ public class Sketch extends PApplet {
 
       }
 
+      // Checking for part 3 of introduction
       else if (intIntroduction == 3) {
 
         if (keyCode == RIGHT) {
@@ -1754,6 +1734,7 @@ public class Sketch extends PApplet {
         }
       }
 
+      // Checking for part 4 of introduction
       else if (intIntroduction == 4) {
 
         if (keyCode == RIGHT) {
@@ -1766,6 +1747,7 @@ public class Sketch extends PApplet {
 
       }
 
+      // Checking for part 5 of introduction
       else if (intIntroduction == 5) {
         if (keyCode == LEFT) {
           intIntroduction = 4;
@@ -1773,6 +1755,9 @@ public class Sketch extends PApplet {
       }
 
     }
+
+    // Checking if WASD keys are released to change boolean value to false
+    // (Challenge 1)
     if (intStage == 2) {
       if (key == 'w' || key == 'W') {
         WPressed = false;
