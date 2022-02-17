@@ -66,6 +66,7 @@ public class Sketch extends PApplet {
 
   // Number to beat in final challenge
   int intNumberGame = (int) random(1, 6);
+  int intBrianisspecial = 0;
 
   /**
    * Called once at the beginning of execution, put your size all in this method
